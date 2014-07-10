@@ -1092,11 +1092,11 @@ pub struct Window {
 }
 
 macro_rules! set_window_callback(
-    ($should_poll:expr, $ll_fn:ident, $callback:ident) => ({
+    ($should_poll:expr, $ll_fn:ident, $callback:ident, $slf:expr) => ({
         if $should_poll {
-            unsafe { ffi::$ll_fn(self.ptr, Some(callbacks::$callback)); }
+            unsafe { ffi::$ll_fn($slf.ptr, Some(callbacks::$callback)); }
         } else {
-            unsafe { ffi::$ll_fn(self.ptr, None); }
+            unsafe { ffi::$ll_fn($slf.ptr, None); }
         }
     })
 )
@@ -1289,7 +1289,7 @@ impl Window {
 
     /// Wrapper for `glfwSetWindowPosCallback`.
     pub fn set_pos_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowPosCallback, window_pos_callback);
+        set_window_callback!(should_poll, glfwSetWindowPosCallback, window_pos_callback, self);
     }
 
     pub fn set_all_polling(&self, should_poll: bool) {
@@ -1310,32 +1310,32 @@ impl Window {
 
     /// Wrapper for `glfwSetWindowSizeCallback`.
     pub fn set_size_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowSizeCallback, window_size_callback);
+        set_window_callback!(should_poll, glfwSetWindowSizeCallback, window_size_callback, self);
     }
 
     /// Wrapper for `glfwSetWindowCloseCallback`.
     pub fn set_close_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowCloseCallback, window_close_callback);
+        set_window_callback!(should_poll, glfwSetWindowCloseCallback, window_close_callback, self);
     }
 
     /// Wrapper for `glfwSetWindowRefreshCallback`.
     pub fn set_refresh_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowRefreshCallback, window_refresh_callback);
+        set_window_callback!(should_poll, glfwSetWindowRefreshCallback, window_refresh_callback, self);
     }
 
     /// Wrapper for `glfwSetWindowFocusCallback`.
     pub fn set_focus_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowFocusCallback, window_focus_callback);
+        set_window_callback!(should_poll, glfwSetWindowFocusCallback, window_focus_callback, self);
     }
 
     /// Wrapper for `glfwSetWindowIconifyCallback`.
     pub fn set_iconify_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetWindowIconifyCallback, window_iconify_callback);
+        set_window_callback!(should_poll, glfwSetWindowIconifyCallback, window_iconify_callback, self);
     }
 
     /// Wrapper for `glfwSetFramebufferSizeCallback`.
     pub fn set_framebuffer_size_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetFramebufferSizeCallback, framebuffer_size_callback);
+        set_window_callback!(should_poll, glfwSetFramebufferSizeCallback, framebuffer_size_callback, self);
     }
 
     /// Wrapper for `glfwGetInputMode` called with `CURSOR`.
@@ -1395,32 +1395,32 @@ impl Window {
 
     /// Wrapper for `glfwSetKeyCallback`.
     pub fn set_key_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetKeyCallback, key_callback);
+        set_window_callback!(should_poll, glfwSetKeyCallback, key_callback, self);
     }
 
     /// Wrapper for `glfwSetCharCallback`.
     pub fn set_char_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetCharCallback, char_callback);
+        set_window_callback!(should_poll, glfwSetCharCallback, char_callback, self);
     }
 
     /// Wrapper for `glfwSetMouseButtonCallback`.
     pub fn set_mouse_button_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetMouseButtonCallback, mouse_button_callback);
+        set_window_callback!(should_poll, glfwSetMouseButtonCallback, mouse_button_callback, self);
     }
 
     /// Wrapper for `glfwSetCursorPosCallback`.
     pub fn set_cursor_pos_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetCursorPosCallback, cursor_pos_callback);
+        set_window_callback!(should_poll, glfwSetCursorPosCallback, cursor_pos_callback, self);
     }
 
     /// Wrapper for `glfwSetCursorEnterCallback`.
     pub fn set_cursor_enter_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetCursorEnterCallback, cursor_enter_callback);
+        set_window_callback!(should_poll, glfwSetCursorEnterCallback, cursor_enter_callback, self);
     }
 
     /// Wrapper for `glfwSetScrollCallback`.
     pub fn set_scroll_polling(&self, should_poll: bool) {
-        set_window_callback!(should_poll, glfwSetScrollCallback, scroll_callback);
+        set_window_callback!(should_poll, glfwSetScrollCallback, scroll_callback, self);
     }
 
     /// Wrapper for `glfwGetClipboardString`.
